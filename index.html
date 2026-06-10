@@ -801,7 +801,7 @@
       </div>
 
       <div class="reveal">
-        <form class="contact-form" id="contactForm" method="POST">
+        <form class="contact-form" id="contactForm" method="POST" action="https://formspree.io/f/mykapolr">
           <div class="form-row">
             <div class="form-group">
               <label for="fname">First name</label>
@@ -912,43 +912,6 @@
         document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
         if (!isOpen) item.classList.add('open');
       });
-    });
-
-    // Formspree contact form
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const btnText = document.getElementById('btnText');
-    const formSuccess = document.getElementById('formSuccess');
-    const formError = document.getElementById('formError');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      submitBtn.disabled = true;
-      btnText.textContent = 'Sending…';
-      formError.classList.remove('show');
-
-      const data = new FormData(form);
-
-      try {
-        // IMPORTANT: replace the URL below with your Formspree endpoint
-        // Go to formspree.io → New Form → copy your endpoint URL
-        const res = await fetch('https://formspree.io/f/mykapolr', {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (res.ok) {
-          form.style.display = 'none';
-          formSuccess.classList.add('show');
-        } else {
-          throw new Error('Server error');
-        }
-      } catch (err) {
-        formError.classList.add('show');
-        submitBtn.disabled = false;
-        btnText.textContent = 'Send message →';
-      }
     });
   </script>
 </body>
