@@ -409,6 +409,7 @@
 
     .menu-item {
       background: var(--deep);
+      /* gap color = --black so empty areas blend in */
       padding: 2rem;
       display: flex;
       justify-content: space-between;
@@ -452,6 +453,10 @@
     /* hidden menu panels */
     .menu-panel { display: none; }
     .menu-panel.active { display: contents; }
+    .menu-item-empty {
+      background: var(--deep);
+      min-height: 140px;
+    }
 
     /* ── STORY ── */
     .story-section {
@@ -927,6 +932,8 @@
           </div>
           <div class="menu-item-price">$9</div>
         </div>
+        <div class="menu-item-empty"></div>
+        <div class="menu-item-empty"></div>
       </div>
 
       <!-- MAINS -->
@@ -979,6 +986,8 @@
           </div>
           <div class="menu-item-price">$28</div>
         </div>
+        <div class="menu-item-empty"></div>
+        <div class="menu-item-empty"></div>
       </div>
 
       <!-- SUSHI -->
@@ -1031,6 +1040,8 @@
           </div>
           <div class="menu-item-price">$65</div>
         </div>
+        <div class="menu-item-empty"></div>
+        <div class="menu-item-empty"></div>
       </div>
 
       <!-- DRINKS -->
@@ -1083,6 +1094,9 @@
           </div>
           <div class="menu-item-price">$5</div>
         </div>
+
+        <div class="menu-item-empty"></div>
+        <div class="menu-item-empty"></div>
       </div>
 
     </div>

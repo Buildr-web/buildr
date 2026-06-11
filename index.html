@@ -693,6 +693,8 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* RESPONSIVE */
+    .mobile-work { display: none; }
+
     @media (max-width: 768px) {
       .hero { padding-top: 8rem; }
       .hero-stats { gap: 2rem; flex-wrap: wrap; }
@@ -700,6 +702,7 @@
       .hero-title { font-size: clamp(2.2rem, 10vw, 3rem); }
       .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
       .form-row { grid-template-columns: 1fr; }
+      .mobile-work { display: inline-flex; }
     }
   </style>
 </head>
@@ -734,6 +737,7 @@
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">Get started →</a>
         <a href="#pricing" class="btn-ghost">See pricing</a>
+        <a href="#portfolio" class="btn-ghost mobile-work">My Work</a>
       </div>
       <div class="hero-stats">
         <div>
