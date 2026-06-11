@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sakura — Authentic Japanese Experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --deep:    #111111;
+      --surface: #1A1A1A;
+      --gold:    #C9A84C;
+      --gold2:   #E8C97A;
+      --red:     #C0392B;
+      --white:   #F5F0E8;
+      --muted:   #888880;
+      --border:  #2A2A2A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 6vw;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-decoration: none;
+    }
+    .nav-logo-jp {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: 0.1em;
+    }
+    .nav-logo-en {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    nav ul a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+    nav ul a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+    nav ul a:hover { color: var(--gold); }
+    nav ul a:hover::after { width: 100%; }
+    .nav-reserve {
+      background: transparent !important;
+      border: 1px solid var(--gold) !important;
+      color: var(--gold) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2px;
+      letter-spacing: 0.1em !important;
+      transition: background 0.2s !important;
+    }
+    .nav-reserve:hover { background: var(--gold) !important; color: var(--black) !important; }
+    .nav-reserve::after { display: none !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Animated background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(192,57,43,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.1) 0%, transparent 50%),
+        var(--black);
+    }
+
+    /* Japanese characters background */
+    .kanji-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      opacity: 0.04;
+      pointer-events: none;
+      overflow: hidden;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 5rem;
+      color: var(--gold);
+      line-height: 1.2;
+      letter-spacing: 0.2em;
+      animation: driftUp 30s linear infinite;
+    }
+    @keyframes driftUp {
+      from { transform: translateY(0); }
+      to { transform: translateY(-50%); }
+    }
+
+    /* Sakura petals */
+    .petal {
+      position: absolute;
+      width: 8px;
+      height: 10px;
+      background: radial-gradient(ellipse, rgba(255,182,193,0.6), rgba(255,105,135,0.2));
+      border-radius: 50% 0 50% 0;
+      animation: fall linear infinite;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(110vh) rotate(720deg) translateX(60px); opacity: 0; }
+    }
+
+    /* Dividing line */
+    .hero-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 2rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+
+    .hero-kanji {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(5rem, 15vw, 12rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.3);
+      line-height: 1;
+      margin-bottom: -1rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.5s forwards;
+      user-select: none;
+    }
+
+    .hero-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.7s forwards;
+    }
+    .hero-title span { color: var(--gold); }
+
+    .hero-sub {
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.5rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.9s forwards;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 2rem auto;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.1s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.3s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      padding: 0.9rem 2.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-gold:hover { background: var(--gold2); transform: translateY(-1px); }
+
+    .btn-outline-gold {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.9rem 2.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline-gold:hover { background: var(--gold); color: var(--black); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.8s forwards;
+    }
+    .hero-scroll span {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 8rem 6vw; }
+
+    .sec-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .sec-label::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .sec-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .sec-body {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.9;
+      max-width: 55ch;
+      font-weight: 300;
+    }
+
+    /* ── MENU ── */
+    .menu-section { background: var(--deep); }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .menu-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .menu-arrow {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: none;
+      color: var(--muted);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .menu-arrow:hover { border-color: var(--gold); color: var(--gold); }
+    .menu-arrow:disabled { opacity: 0.25; cursor: not-allowed; }
+    .menu-nav-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 130px;
+      text-align: center;
+    }
+    .menu-nav-current {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    .menu-nav-counter {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-top: 0.2rem;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .menu-item {
+      background: var(--deep);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .menu-item:hover { background: var(--surface); }
+
+    .menu-item-info { flex: 1; }
+    .menu-item-jp {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.3rem;
+      opacity: 0.7;
+    }
+    .menu-item-name {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .menu-item-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .menu-item-price {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* hidden menu panels */
+    .menu-panel { display: none; }
+    .menu-panel.active { display: contents; }
+
+    /* ── STORY ── */
+    .story-section {
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      padding: 8rem 6vw;
+    }
+
+    .story-visual {
+      position: relative;
+    }
+
+    .story-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Abstract visual */
+    .story-frame-inner {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(192,57,43,0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, rgba(201,168,76,0.2) 0%, transparent 50%),
+        var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .story-kanji-big {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 12rem;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.25);
+      user-select: none;
+      line-height: 1;
+    }
+
+    .story-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 100px;
+      height: 100px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+    }
+    .story-badge-num {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .story-badge-text {
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .story-content { }
+
+    .story-quote {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--gold);
+    }
+
+    .story-text {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.9;
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+    }
+
+    .story-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .story-fact-num {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .story-fact-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+    }
+
+    /* ── EXPERIENCE ── */
+    .experience-section { background: var(--deep); }
+
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .exp-card {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .exp-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .exp-card:hover::before { opacity: 1; }
+
+    .exp-icon {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 2.5rem;
+      color: var(--gold);
+      opacity: 0.6;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .exp-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .exp-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── LOCATION ── */
+    .location-section {
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+      min-height: 60vh;
+    }
+
+    .location-info {
+      padding: 7rem 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .location-details {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .location-row {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+    .location-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .location-row-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .location-row-val {
+      font-size: 0.9rem;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    .reserve-btn {
+      margin-top: 3rem;
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      padding: 1rem 2.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      align-self: flex-start;
+      transition: background 0.2s;
+    }
+    .reserve-btn:hover { background: var(--gold2); }
+
+    /* Map placeholder */
+    .location-map {
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+    }
+    .map-inner {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(201,168,76,0.05) 50px),
+        repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(201,168,76,0.05) 50px),
+        var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .map-pin {
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 0 0 0 8px rgba(201,168,76,0.15), 0 0 0 16px rgba(201,168,76,0.07);
+      animation: pinPulse 2s ease-in-out infinite;
+    }
+    @keyframes pinPulse {
+      0%, 100% { box-shadow: 0 0 0 8px rgba(201,168,76,0.15), 0 0 0 16px rgba(201,168,76,0.07); }
+      50% { box-shadow: 0 0 0 12px rgba(201,168,76,0.2), 0 0 0 24px rgba(201,168,76,0.05); }
+    }
+    .map-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060606;
+      border-top: 1px solid var(--border);
+      padding: 4rem 6vw 2rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .footer-brand-jp {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+    .footer-brand-en {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .footer-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 38ch;
+    }
+    .footer-col h4 {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .footer-col ul a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .story-section { grid-template-columns: 1fr; }
+      .story-visual { display: none; }
+      .location-section { grid-template-columns: 1fr; }
+      .location-map { min-height: 300px; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .story-facts { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-jp">桜</span>
+      <span class="nav-logo-en">Sakura</span>
+    </a>
+    <ul>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#location" class="nav-reserve">Reserve a Table</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+
+    <!-- Kanji rain background -->
+    <div class="kanji-bg" aria-hidden="true">
+      桜花日本料理寿司侍東京美食道心静和風雅禅月星水火山川木石夜朝空海
+      桜花日本料理寿司侍東京美食道心静和風雅禅月星水火山川木石夜朝空海
+      桜花日本料理寿司侍東京美食道心静和風雅禅月星水火山川木石夜朝空海
+      桜花日本料理寿司侍東京美食道心静和風雅禅月星水火山川木石夜朝空海
+    </div>
+
+    <div class="hero-line"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Authentic Japanese Cuisine</p>
+      <div class="hero-kanji" aria-hidden="true">桜</div>
+      <h1 class="hero-title">Sak<span>u</span>ra</h1>
+      <p class="hero-sub">Where tradition meets the modern table</p>
+      <div class="hero-divider"></div>
+      <div class="hero-actions">
+        <a href="#menu" class="btn-gold">Explore the Menu</a>
+        <a href="#story" class="btn-outline-gold">Our Story</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu-section" id="menu">
+    <div class="menu-header">
+      <div>
+        <div class="sec-label reveal">Menu</div>
+        <h2 class="sec-title reveal">A journey<br>through Japan</h2>
+      </div>
+      <div class="menu-nav reveal">
+        <button class="menu-arrow" id="menuPrev" onclick="changeMenu(-1)" disabled>&#8592;</button>
+        <div class="menu-nav-label">
+          <div class="menu-nav-current" id="menuCurrentLabel">Starters</div>
+          <div class="menu-nav-counter" id="menuCounter">1 / 4</div>
+        </div>
+        <button class="menu-arrow" id="menuNext" onclick="changeMenu(1)">&#8594;</button>
+      </div>
+    </div>
+
+    <div class="menu-grid reveal">
+
+      <!-- STARTERS -->
+      <div class="menu-panel active" id="starters">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">枝豆</div>
+            <div class="menu-item-name">Edamame</div>
+            <div class="menu-item-desc">Steamed young soybeans, sea salt, yuzu zest</div>
+          </div>
+          <div class="menu-item-price">$6</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">餃子</div>
+            <div class="menu-item-name">Gyoza</div>
+            <div class="menu-item-desc">Pan-fried pork & ginger dumplings, ponzu dip</div>
+          </div>
+          <div class="menu-item-price">$10</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">唐揚げ</div>
+            <div class="menu-item-name">Karaage</div>
+            <div class="menu-item-desc">Crispy fried chicken, kewpie mayo, lemon</div>
+          </div>
+          <div class="menu-item-price">$12</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">味噌汁</div>
+            <div class="menu-item-name">Miso Soup</div>
+            <div class="menu-item-desc">White miso, silken tofu, wakame, spring onion</div>
+          </div>
+          <div class="menu-item-price">$5</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">たこ焼き</div>
+            <div class="menu-item-name">Takoyaki</div>
+            <div class="menu-item-desc">Octopus balls, bonito flakes, takoyaki sauce</div>
+          </div>
+          <div class="menu-item-price">$11</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">サラダ</div>
+            <div class="menu-item-name">Wakame Salad</div>
+            <div class="menu-item-desc">Sea vegetables, sesame oil, toasted seeds</div>
+          </div>
+          <div class="menu-item-price">$9</div>
+        </div>
+      </div>
+
+      <!-- MAINS -->
+      <div class="menu-panel" id="mains">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">ラーメン</div>
+            <div class="menu-item-name">Tonkotsu Ramen</div>
+            <div class="menu-item-desc">Rich pork bone broth, chashu, soft egg, nori</div>
+          </div>
+          <div class="menu-item-price">$18</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">牛丼</div>
+            <div class="menu-item-name">Wagyu Gyudon</div>
+            <div class="menu-item-desc">Slow-braised wagyu beef over steamed rice</div>
+          </div>
+          <div class="menu-item-price">$26</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">天ぷら</div>
+            <div class="menu-item-name">Tempura Set</div>
+            <div class="menu-item-desc">Seasonal vegetables & prawns, dashi dipping sauce</div>
+          </div>
+          <div class="menu-item-price">$22</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">焼き鳥</div>
+            <div class="menu-item-name">Yakitori Platter</div>
+            <div class="menu-item-desc">Charcoal-grilled skewers, tare glaze, tsukkune</div>
+          </div>
+          <div class="menu-item-price">$24</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">うどん</div>
+            <div class="menu-item-name">Kitsune Udon</div>
+            <div class="menu-item-desc">Thick wheat noodles, sweet fried tofu, dashi</div>
+          </div>
+          <div class="menu-item-price">$16</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">鮭定食</div>
+            <div class="menu-item-name">Salmon Teishoku</div>
+            <div class="menu-item-desc">Grilled miso salmon, rice, miso soup, pickles</div>
+          </div>
+          <div class="menu-item-price">$28</div>
+        </div>
+      </div>
+
+      <!-- SUSHI -->
+      <div class="menu-panel" id="sushi">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">握り</div>
+            <div class="menu-item-name">Nigiri Selection (8 pcs)</div>
+            <div class="menu-item-desc">Chef's daily selection of seasonal fish</div>
+          </div>
+          <div class="menu-item-price">$32</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">巻き</div>
+            <div class="menu-item-name">Dragon Roll</div>
+            <div class="menu-item-desc">Prawn tempura, avocado, unagi, tobiko</div>
+          </div>
+          <div class="menu-item-price">$18</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">刺身</div>
+            <div class="menu-item-name">Sashimi Platter</div>
+            <div class="menu-item-desc">12 pieces, chef's selection, wasabi, pickled ginger</div>
+          </div>
+          <div class="menu-item-price">$38</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">手巻き</div>
+            <div class="menu-item-name">Spicy Tuna Temaki</div>
+            <div class="menu-item-desc">Hand roll, spicy tuna, cucumber, sriracha mayo</div>
+          </div>
+          <div class="menu-item-price">$9</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">軍艦</div>
+            <div class="menu-item-name">Gunkan Trio</div>
+            <div class="menu-item-desc">Uni, ikura, scallop — battleship-style nigiri</div>
+          </div>
+          <div class="menu-item-price">$22</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">おまかせ</div>
+            <div class="menu-item-name">Omakase (Chef's Choice)</div>
+            <div class="menu-item-desc">Trust the chef — 15-piece seasonal tasting</div>
+          </div>
+          <div class="menu-item-price">$65</div>
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="menu-panel" id="drinks">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">日本酒</div>
+            <div class="menu-item-name">Sake — Junmai Daiginjo</div>
+            <div class="menu-item-desc">Premium cold sake, floral and fruity notes</div>
+          </div>
+          <div class="menu-item-price">$14</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">抹茶</div>
+            <div class="menu-item-name">Matcha Latte</div>
+            <div class="menu-item-desc">Ceremonial grade matcha, steamed oat milk</div>
+          </div>
+          <div class="menu-item-price">$7</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">梅酒</div>
+            <div class="menu-item-name">Umeshu Spritz</div>
+            <div class="menu-item-desc">Japanese plum wine, yuzu soda, shiso leaf</div>
+          </div>
+          <div class="menu-item-price">$12</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">ビール</div>
+            <div class="menu-item-name">Sapporo Draft</div>
+            <div class="menu-item-desc">Classic Japanese lager, crisp and refreshing</div>
+          </div>
+          <div class="menu-item-price">$8</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">焼酎</div>
+            <div class="menu-item-name">Shochu Highball</div>
+            <div class="menu-item-desc">Sweet potato shochu, sparkling water, citrus</div>
+          </div>
+          <div class="menu-item-price">$10</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-jp">煎茶</div>
+            <div class="menu-item-name">Sencha Green Tea</div>
+            <div class="menu-item-desc">Premium Japanese green tea, hot or iced</div>
+          </div>
+          <div class="menu-item-price">$5</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story-section" id="story">
+    <div class="story-visual reveal">
+      <div class="story-frame">
+        <div class="story-frame-inner">
+          <div class="story-kanji-big">桜</div>
+        </div>
+      </div>
+      <div class="story-badge">
+        <div class="story-badge-num">15</div>
+        <div class="story-badge-text">Years of<br>Craft</div>
+      </div>
+    </div>
+    <div class="story-content reveal">
+      <div class="sec-label">Our Story</div>
+      <h2 class="sec-title">Born in Kyoto.<br>Brought to you.</h2>
+      <div class="story-quote">"Food is not just nourishment — it is memory, culture, and connection."</div>
+      <p class="story-text">Sakura was founded in 2010 by Chef Hiroshi Tanaka, who trained for over a decade in the traditional ryotei restaurants of Kyoto before bringing his craft to the West. Every dish on our menu carries a piece of that heritage.</p>
+      <p class="story-text">We source our ingredients with the same care a Japanese craftsman brings to his tools. Our fish arrives daily from trusted suppliers, our rice is imported from Niigata Prefecture, and our miso is aged for twelve months in hand-crafted cedar barrels.</p>
+      <div class="story-facts">
+        <div>
+          <div class="story-fact-num">100%</div>
+          <div class="story-fact-label">Daily fresh ingredients</div>
+        </div>
+        <div>
+          <div class="story-fact-num">40+</div>
+          <div class="story-fact-label">Menu items</div>
+        </div>
+        <div>
+          <div class="story-fact-num">3</div>
+          <div class="story-fact-label">Michelin-trained chefs</div>
+        </div>
+        <div>
+          <div class="story-fact-num">15</div>
+          <div class="story-fact-label">Years of tradition</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience-section">
+    <div class="sec-label reveal">The Experience</div>
+    <h2 class="sec-title reveal">More than a meal</h2>
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <span class="exp-icon">🍱</span>
+        <div class="exp-title">Omakase Dining</div>
+        <div class="exp-desc">Let Chef Tanaka guide your evening. A 10-course tasting experience crafted around the season's finest ingredients.</div>
+      </div>
+      <div class="exp-card reveal">
+        <span class="exp-icon">🍶</span>
+        <div class="exp-title">Sake Pairing</div>
+        <div class="exp-desc">Our sommelier curates sake and shochu pairings to complement every dish — from bold junmai to delicate daiginjo.</div>
+      </div>
+      <div class="exp-card reveal">
+        <span class="exp-icon">🎋</span>
+        <div class="exp-title">Private Dining</div>
+        <div class="exp-desc">A serene tatami room for up to 12 guests. Perfect for celebrations, business dinners or intimate gatherings.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="location-section" id="location">
+    <div class="location-info">
+      <div class="sec-label reveal">Find Us</div>
+      <h2 class="sec-title reveal">Come visit</h2>
+      <div class="location-details reveal">
+        <div class="location-row">
+          <div class="location-icon">📍</div>
+          <div>
+            <div class="location-row-label">Address</div>
+            <div class="location-row-val">14 Cherry Blossom Lane<br>New York, NY 10001</div>
+          </div>
+        </div>
+        <div class="location-row">
+          <div class="location-icon">🕐</div>
+          <div>
+            <div class="location-row-label">Hours</div>
+            <div class="location-row-val">Mon–Thu: 12:00 – 22:00<br>Fri–Sat: 12:00 – 23:30<br>Sunday: 13:00 – 21:00</div>
+          </div>
+        </div>
+        <div class="location-row">
+          <div class="location-icon">📞</div>
+          <div>
+            <div class="location-row-label">Reservations</div>
+            <div class="location-row-val">+1 (212) 555-0198</div>
+          </div>
+        </div>
+      </div>
+      <a href="tel:+12125550198" class="reserve-btn reveal">Reserve a Table →</a>
+    </div>
+    <div class="location-map">
+      <div class="map-inner">
+        <div class="map-pin"></div>
+        <div class="map-label">Sakura Restaurant</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-jp">桜</div>
+        <div class="footer-brand-en">Sakura Japanese Restaurant</div>
+        <p class="footer-desc">Authentic Japanese cuisine crafted with tradition, passion and the finest seasonal ingredients. Est. 2010.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#location">Location</a></li>
+          <li><a href="#location">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+12125550198">+1 (212) 555-0198</a></li>
+          <li><a href="mailto:hello@sakura-nyc.com">hello@sakura-nyc.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Sakura Restaurant. All rights reserved.</span>
+      <span>Designed with care · Built by <a href="#" style="color:var(--gold)">Buildr</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Scroll reveal
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+    // Menu arrow navigation
+    const menuItems = [
+      { id: 'starters', label: 'Starters' },
+      { id: 'mains',    label: 'Mains' },
+      { id: 'sushi',    label: 'Sushi' },
+      { id: 'drinks',   label: 'Drinks' }
+    ];
+    let menuIndex = 0;
+
+    function changeMenu(dir) {
+      menuIndex = Math.max(0, Math.min(menuItems.length - 1, menuIndex + dir));
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(menuItems[menuIndex].id).classList.add('active');
+      document.getElementById('menuCurrentLabel').textContent = menuItems[menuIndex].label;
+      document.getElementById('menuCounter').textContent = (menuIndex + 1) + ' / ' + menuItems.length;
+      document.getElementById('menuPrev').disabled = menuIndex === 0;
+      document.getElementById('menuNext').disabled = menuIndex === menuItems.length - 1;
+    }
+
+    // Sakura petals
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (Math.random() * 6 + 6) + 's';
+      petal.style.animationDelay = (Math.random() * 4) + 's';
+      petal.style.width = (Math.random() * 6 + 5) + 'px';
+      petal.style.height = (Math.random() * 6 + 5) + 'px';
+      petal.style.opacity = Math.random() * 0.6 + 0.2;
+      document.querySelector('.hero').appendChild(petal);
+      setTimeout(() => petal.remove(), 14000);
+    }
+    setInterval(createPetal, 600);
+    for (let i = 0; i < 8; i++) setTimeout(createPetal, i * 300);
+  </script>
+</body>
+</html>

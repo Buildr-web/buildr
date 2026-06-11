@@ -545,6 +545,89 @@
     }
     .form-error.show { display: block; }
 
+
+    /* PORTFOLIO */
+    .portfolio { background: var(--bg); }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .portfolio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+    .portfolio-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .portfolio-preview {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .portfolio-preview-sakura {
+      background: radial-gradient(ellipse at 30% 50%, rgba(192,57,43,0.3), transparent 60%),
+                  radial-gradient(ellipse at 70% 30%, rgba(201,168,76,0.2), transparent 50%),
+                  #0A0A0A;
+    }
+    .portfolio-preview-fixright {
+      background: radial-gradient(ellipse at 60% 50%, rgba(255,209,0,0.15), transparent 60%),
+                  #F2F2F0;
+    }
+    .portfolio-preview-forgefit {
+      background: radial-gradient(ellipse at 60% 50%, rgba(230,57,70,0.2), transparent 60%),
+                  #0D0D0D;
+    }
+    .portfolio-preview-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      pointer-events: none;
+    }
+    .portfolio-preview-sakura .portfolio-preview-title { color: #C9A84C; font-family: serif; }
+    .portfolio-preview-fixright .portfolio-preview-title { color: #1A1A1A; }
+    .portfolio-preview-forgefit .portfolio-preview-title { color: #E63946; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.04em; }
+    .portfolio-arrow {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      width: 32px; height: 32px;
+      background: rgba(108,99,255,0.15);
+      border: 1px solid rgba(108,99,255,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent2);
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .portfolio-card:hover .portfolio-arrow { opacity: 1; }
+    .portfolio-info { padding: 1.5rem; }
+    .portfolio-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .portfolio-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
     /* FAQ */
     .faq { background: var(--surface); }
     .faq-list { margin-top: 3.5rem; max-width: 700px; display: flex; flex-direction: column; }
@@ -628,6 +711,7 @@
     <ul>
       <li><a href="#process">Process</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#portfolio">Work</a></li>
       <li><a href="#contact" class="nav-cta">Get started</a></li>
     </ul>
   </nav>
@@ -841,6 +925,52 @@
           <p>Thanks for reaching out. I'll get back to you within 24 hours.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="portfolio">
+    <p class="label reveal">Portfolio</p>
+    <h2 class="sec-title reveal">Recent work.</h2>
+    <p class="sec-body reveal">Every site is built from scratch. Here are some examples of what your business could look like online.</p>
+    <div class="portfolio-grid">
+
+      <a href="sakura-restaurant.html" target="_blank" class="portfolio-card reveal">
+        <div class="portfolio-preview portfolio-preview-sakura">
+          <div class="portfolio-preview-title">桜</div>
+          <div class="portfolio-arrow">↗</div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">Restaurant</div>
+          <div class="portfolio-name">Sakura Japanese Restaurant</div>
+          <div class="portfolio-desc">Elegant dining experience site with animated menu, story section and reservation CTA.</div>
+        </div>
+      </a>
+
+      <a href="fixright.html" target="_blank" class="portfolio-card reveal">
+        <div class="portfolio-preview portfolio-preview-fixright">
+          <div class="portfolio-preview-title" style="font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:900;letter-spacing:-0.04em;">Fix<span style="color:#FFD100">Right</span></div>
+          <div class="portfolio-arrow">↗</div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">Trades & Services</div>
+          <div class="portfolio-name">FixRight Handyman Services</div>
+          <div class="portfolio-desc">Bold, high-converting site for a local handyman business with services, reviews and quote form.</div>
+        </div>
+      </a>
+
+      <a href="forgefit.html" target="_blank" class="portfolio-card reveal">
+        <div class="portfolio-preview portfolio-preview-forgefit">
+          <div class="portfolio-preview-title" style="font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:900;">Forge<span style="color:#E63946">Fit</span></div>
+          <div class="portfolio-arrow">↗</div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-tag">Fitness & Coaching</div>
+          <div class="portfolio-name">ForgeFit Personal Training</div>
+          <div class="portfolio-desc">Dark, impactful personal trainer site with programs, testimonials and booking form.</div>
+        </div>
+      </a>
+
     </div>
   </section>
 
