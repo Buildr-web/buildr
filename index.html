@@ -286,6 +286,36 @@
       display: flex;
       justify-content: center;
     }
+    .pricing-grid-two {
+      margin-top: 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .pricing-grid-three {
+      margin-top: 4rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .pricing-grid-two { grid-template-columns: 1fr; }
+      .pricing-grid-three { grid-template-columns: 1fr; }
+    }
+    .plan-featured {
+      border-color: var(--accent);
+      background: linear-gradient(160deg, rgba(108,99,255,0.08) 0%, var(--surface) 60%);
+    }
+    .plan-maintenance {
+      border-color: rgba(167,139,250,0.2);
+      border-style: dashed;
+    }
+    .plan-cta-soft {
+      background: rgba(108,99,255,0.15) !important;
+      color: var(--accent2) !important;
+      border: 1px solid rgba(108,99,255,0.3);
+    }
+    .plan-cta-soft:hover { background: var(--accent) !important; color: white !important; }
     .plan {
       background: var(--surface);
       border: 1px solid var(--accent);
@@ -808,32 +838,66 @@
   <!-- PRICING -->
   <section class="pricing" id="pricing">
     <p class="label reveal">Pricing</p>
-    <h2 class="sec-title reveal">One plan. No surprises.</h2>
-    <p class="sec-body reveal">Everything you need to get online and get found. Add monthly maintenance to keep it running smoothly.</p>
-    <div class="pricing-center">
-      <div class="plan reveal">
-        <div class="plan-badge">Everything included</div>
-        <div class="plan-name">Website Package</div>
+    <h2 class="sec-title reveal">Two plans.<br>No surprises.</h2>
+    <p class="sec-body reveal">Choose the package that fits your business. Add monthly maintenance to keep everything running smoothly.</p>
+    <div class="pricing-grid-three reveal">
+
+      <!-- PLAN BASE -->
+      <div class="plan">
+        <div class="plan-badge">Starter</div>
+        <div class="plan-name">Base</div>
         <div class="plan-price"><sup>$</sup>100</div>
         <div class="plan-period">one-time payment</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li>Custom professional design</li>
-          <li>Up to 3 pages</li>
+          <li>Single page with multiple sections</li>
+          <li>Hero, Services, About & Contact</li>
+          <li>Original custom design</li>
           <li>Mobile optimised</li>
           <li>Contact form included</li>
-          <li>SEO basics set up</li>
-          <li>Delivered in 3–5 days</li>
+          <li>Delivered in 3–4 days</li>
         </ul>
-        <div class="addon-box">
-          <div class="addon-label">
-            <strong>+ Monthly Maintenance</strong>
-            Hosting, updates, backups & SSL managed for you
-          </div>
-          <div class="addon-price">$40<span style="font-size:0.8rem;color:var(--muted);font-weight:400;">/mo</span></div>
-        </div>
-        <a href="#contact" class="plan-cta">Get your website →</a>
+        <a href="#contact" class="plan-cta" style="margin-top:auto;">Get started →</a>
       </div>
+
+      <!-- PLAN COMPLETE -->
+      <div class="plan plan-featured">
+        <div class="plan-badge" style="background:rgba(108,99,255,0.3);color:var(--accent2);border-color:rgba(108,99,255,0.4);">Most popular</div>
+        <div class="plan-name">Complete</div>
+        <div class="plan-price"><sup>$</sup>250</div>
+        <div class="plan-period">one-time payment</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Up to 5 separate pages</li>
+          <li>Advanced original design</li>
+          <li>Mobile optimised</li>
+          <li>Contact form included</li>
+          <li>SEO basics (titles, meta tags, speed)</li>
+          <li>Google Maps integrated</li>
+          <li>Social media links integrated</li>
+          <li>Delivered in 5–7 days</li>
+        </ul>
+        <a href="#contact" class="plan-cta" style="margin-top:auto;">Get started →</a>
+      </div>
+
+      <!-- MAINTENANCE -->
+      <div class="plan plan-maintenance">
+        <div class="plan-badge" style="background:rgba(167,139,250,0.12);color:#C4B5FD;border-color:rgba(167,139,250,0.2);">Add-on</div>
+        <div class="plan-name">Maintenance</div>
+        <div class="plan-price"><sup>$</sup>40</div>
+        <div class="plan-period">per month · optional</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Hosting & domain managed</li>
+          <li>Monthly backups</li>
+          <li>SSL certificate always active</li>
+          <li>Text & photo updates included</li>
+          <li>Small changes included</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#contact" class="plan-cta plan-cta-soft" style="margin-top:auto;">Add to my plan →</a>
+      </div>
+
     </div>
   </section>
 
@@ -907,8 +971,11 @@
           <div class="form-group">
             <label for="finterest">I'm interested in</label>
             <select id="finterest" name="interest">
-              <option value="website">Website Package — $100</option>
-              <option value="website+maintenance">Website + Maintenance — $100 + $40/mo</option>
+              <option value="base">Base Website — $100</option>
+              <option value="complete">Complete Website — $250</option>
+              <option value="base+maintenance">Base + Maintenance — $100 + $40/mo</option>
+              <option value="complete+maintenance">Complete + Maintenance — $250 + $40/mo</option>
+              <option value="maintenance">Maintenance only — $40/mo</option>
               <option value="just asking">Just asking a question</option>
             </select>
           </div>
